@@ -8,34 +8,38 @@ ChartJS.register(
     Legend, Tooltip, ArcElement
 );
 
-export const PieChart=()=> {
+export const PieChart = ({ data, title = "Graphique", legendPosition = "top" }) => {
     const options = {
         responsive: true,
+        maintainAspectRatio: false, 
         plugins: {
             legend: {
-                position: 'top',
+                position: legendPosition,
                 labels: {
                     font: {
                         size: 12
-                    }
+                    },
+                    boxWidth: 15,
+                    padding: 10
                 }
             },
             title: {
                 display: true,
-                text: 'Statut des paniers',
+                text: title,
                 font: {
                     size: 18
+                },
+                padding: {
+                    top: 5,
+                    bottom: 5
                 }
             },
         },
-        maintainAspectRatio: true,
     }
 
     return (
-        <div className="w-full h-full">
-            <Pie options={options} data={cartChartData}/>
+        <div style={{ height: '100%', width: '100%', position: 'relative' }}>
+            <Pie options={options} data={data} />
         </div>
-
     )
 }
-

@@ -1,4 +1,4 @@
-import {Bar, Line} from 'react-chartjs-2'
+import {Bar} from 'react-chartjs-2'
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -6,9 +6,8 @@ import {
     BarElement,
     Title,
     Tooltip,
-    Legend, PointElement,
+    Legend
 } from 'chart.js'
-import {topProductsData} from "../fake_data.js";
 
 ChartJS.register(
     CategoryScale,
@@ -19,16 +18,22 @@ ChartJS.register(
     Legend,
 );
 
-export const BarChart=()=> {
+export const BarChart = ({
+                             data,
+                             title = "Graphique",
+                             xAxisLabel = "X",
+                             yAxisLabel = "Y",
+                             showLegend = false
+                         }) => {
     const options = {
-
+        responsive: true,
         plugins: {
             legend: {
-               display: false,
+                display: showLegend,
             },
             title: {
                 display: true,
-                text: 'Meilleures ventes par produit',
+                text: title,
                 font: {
                     size: 18
                 }
@@ -38,7 +43,7 @@ export const BarChart=()=> {
             x: {
                 title: {
                     display: true,
-                    text: 'Produits',
+                    text: xAxisLabel,
                     font: {
                         size: 14,
                         weight: 'bold'
@@ -53,7 +58,7 @@ export const BarChart=()=> {
             y: {
                 title: {
                     display: true,
-                    text: 'Nombre d\'unités vendues',
+                    text: yAxisLabel,
                     font: {
                         size: 14,
                         weight: 'bold'
@@ -66,18 +71,13 @@ export const BarChart=()=> {
                     }
                 }
             },
-
-
         },
         maintainAspectRatio: false,
-
     }
 
     return (
-        <div className="w-full lg:w-1/2 mx-auto">
-            <Bar options={options} data={topProductsData}/>
+        <div style={{ height: '100%', width: '100%' }}>
+            <Bar options={options} data={data} />
         </div>
-
     )
 }
-
